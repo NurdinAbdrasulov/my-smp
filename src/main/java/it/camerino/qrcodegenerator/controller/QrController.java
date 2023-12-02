@@ -26,4 +26,9 @@ public class QrController {
         return ResponseEntity.ok(service.getAll());
     }
 
+    @GetMapping("link")
+    public ResponseEntity<?> getLink(String hash){
+        return ResponseEntity.ok(service.getLinkByHas(hash));
+    }
+
 }

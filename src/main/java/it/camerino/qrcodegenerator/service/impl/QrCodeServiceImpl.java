@@ -1,15 +1,19 @@
 package it.camerino.qrcodegenerator.service.impl;
 
+import it.camerino.qrcodegenerator.dto.Dto;
 import it.camerino.qrcodegenerator.dto.QrCodeDto;
 import it.camerino.qrcodegenerator.entity.QrCode;
+import it.camerino.qrcodegenerator.exception.BaseException;
 import it.camerino.qrcodegenerator.repository.QrCodeRepo;
 import it.camerino.qrcodegenerator.service.QrCodeService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -52,6 +56,17 @@ public class QrCodeServiceImpl implements QrCodeService {
         List<QrCodeDto> list = repo.findAll().stream().map(this::toModel).toList();
 
         return list;
+    }
+
+    @Override
+    public Dto getLinkByHas(String hash) {
+        QrCode qr = repo.findByHash(hash).orElseThrow(() -> new BaseException("QR-cod with this hash not found", HttpStatus.NOT_FOUND));
+
+        qr.setScanNumber(qr.getScanNumber().add(BigInteger.ONE));
+        repo.save(qr);
+
+        return new Dto(qr.getHash(), qr.getLink());
+
     }
 
     private QrCodeDto toModel(QrCode qrCode){
