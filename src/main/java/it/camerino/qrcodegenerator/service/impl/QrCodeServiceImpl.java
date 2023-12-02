@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -44,6 +45,13 @@ public class QrCodeServiceImpl implements QrCodeService {
     @Override
     public QrCodeDto update(QrCodeDto dto) {
         throw new UnsupportedOperationException("Method is not implemented");
+    }
+
+    @Override
+    public List<QrCodeDto> getAll() {
+        List<QrCodeDto> list = repo.findAll().stream().map(this::toModel).toList();
+
+        return list;
     }
 
     private QrCodeDto toModel(QrCode qrCode){
