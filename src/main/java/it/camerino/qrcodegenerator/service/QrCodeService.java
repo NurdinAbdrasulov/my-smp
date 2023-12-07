@@ -1,6 +1,6 @@
 package it.camerino.qrcodegenerator.service;
 
-import it.camerino.qrcodegenerator.dto.Dto;
+import it.camerino.qrcodegenerator.dto.LinkDto;
 import it.camerino.qrcodegenerator.dto.QrCodeDto;
 
 import java.util.List;
@@ -15,5 +15,5 @@ public interface QrCodeService {
 
     List<QrCodeDto> getAll();
 
-    Dto getLinkByHas(String hash);
+    LinkDto getLinkByHas(String hash);
 }

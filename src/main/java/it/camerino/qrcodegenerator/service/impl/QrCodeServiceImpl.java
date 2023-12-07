@@ -1,6 +1,6 @@
 package it.camerino.qrcodegenerator.service.impl;
 
-import it.camerino.qrcodegenerator.dto.Dto;
+import it.camerino.qrcodegenerator.dto.LinkDto;
 import it.camerino.qrcodegenerator.dto.QrCodeDto;
 import it.camerino.qrcodegenerator.entity.QrCode;
 import it.camerino.qrcodegenerator.exception.BaseException;
@@ -35,7 +35,7 @@ public class QrCodeServiceImpl implements QrCodeService {
                 null,//todo add current user
                 dto.getLink(),
                 dto.getColor(),
-                null
+                BigInteger.ZERO
         );
 
         return toModel( repo.save(qr));
@@ -53,20 +53,18 @@ public class QrCodeServiceImpl implements QrCodeService {
 
     @Override
     public List<QrCodeDto> getAll() {
-        List<QrCodeDto> list = repo.findAll().stream().map(this::toModel).toList();
-
-        return list;
+        return repo.findAll().stream().map(this::toModel).toList();
     }
 
     @Override
-    public Dto getLinkByHas(String hash) {
-        QrCode qr = repo.findByHash(hash).orElseThrow(() -> new BaseException("QR-cod with this hash not found", HttpStatus.NOT_FOUND));
-
+    public LinkDto getLinkByHas(String hash) {
+        QrCode qr = repo.findByHash(hash).orElseThrow(
+                () -> new BaseException("QR-code with the hash %s not found".formatted(hash), HttpStatus.NOT_FOUND)
+        );
         qr.setScanNumber(qr.getScanNumber().add(BigInteger.ONE));
         repo.save(qr);
 
-        return new Dto(qr.getHash(), qr.getLink());
-
+        return new LinkDto(qr.getHash(), qr.getLink());
     }
 
     private QrCodeDto toModel(QrCode qrCode){
