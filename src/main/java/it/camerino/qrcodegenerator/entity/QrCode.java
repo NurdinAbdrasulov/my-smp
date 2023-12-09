@@ -25,6 +25,9 @@ public class QrCode {
     @Column(name = "created_at")
     LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    LocalDateTime updatedAt;
+
     @ManyToOne
     @JoinColumn(name = "created_by")
     User createdBy;

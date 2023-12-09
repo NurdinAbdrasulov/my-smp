@@ -4,6 +4,7 @@ import it.camerino.qrcodegenerator.dto.LinkDto;
 import it.camerino.qrcodegenerator.dto.QrCodeDto;
 import it.camerino.qrcodegenerator.entity.QrCode;
 import it.camerino.qrcodegenerator.exception.BaseException;
+import it.camerino.qrcodegenerator.exception.ValidationException;
 import it.camerino.qrcodegenerator.repository.QrCodeRepo;
 import it.camerino.qrcodegenerator.service.QrCodeService;
 import lombok.AccessLevel;
@@ -28,17 +29,15 @@ public class QrCodeServiceImpl implements QrCodeService {
 
     @Override
     public QrCodeDto create(QrCodeDto dto) {
-        QrCode qr = new QrCode(
-                null,
-                UUID.randomUUID().toString(),
-                LocalDateTime.now(),
-                null,//todo add current user
-                dto.getLink(),
-                dto.getColor(),
-                BigInteger.ZERO
-        );
+        QrCode qr = QrCode.builder()
+                .hash(UUID.randomUUID().toString())
+                .createdAt(LocalDateTime.now())
+                .link(dto.getLink())
+                .color(dto.getColor())
+                .scanNumber(BigInteger.ZERO)
+                .build();
 
-        return toModel( repo.save(qr));
+        return toModel(repo.save(qr));
     }
 
     @Override
@@ -48,7 +47,25 @@ public class QrCodeServiceImpl implements QrCodeService {
 
     @Override
     public QrCodeDto update(QrCodeDto dto) {
-        throw new UnsupportedOperationException("Method is not implemented");
+        if (dto.getId() == null) {
+            throw new ValidationException("When editing, Id must not be null");
+        }
+
+        QrCode entity = repo.findById(dto.getId())
+                .map(
+                        qrCode -> {
+                            qrCode.setColor(dto.getColor());
+                            qrCode.setLink(dto.getLink());
+                            qrCode.setUpdatedAt(LocalDateTime.now());
+
+                            return qrCode;
+                        }
+                )
+                .orElseThrow(
+                        () -> new BaseException("The QR-code with id %s not found".formatted(dto.getId()), HttpStatus.NOT_FOUND)
+                );
+
+        return toModel(repo.save(entity));
     }
 
     @Override
@@ -67,7 +84,7 @@ public class QrCodeServiceImpl implements QrCodeService {
         return new LinkDto(qr.getHash(), qr.getLink());
     }
 
-    private QrCodeDto toModel(QrCode qrCode){
+    private QrCodeDto toModel(QrCode qrCode) {
         return new QrCodeDto(
                 qrCode.getId(),
                 qrCode.getHash(),

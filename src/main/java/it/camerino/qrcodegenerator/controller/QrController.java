@@ -21,17 +21,22 @@ public class QrController {
     QrCodeService service;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody QrCodeDto dto){
+    public ResponseEntity<?> create(@RequestBody QrCodeDto dto) {
         return ResponseEntity.ok(service.create(dto));
     }
 
+    @PostMapping("edit")
+    public ResponseEntity<?> edit(@RequestBody QrCodeDto dto) {
+        return ResponseEntity.ok(service.update(dto));
+    }
+
     @GetMapping
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping("link")
-    public ResponseEntity<?> getLink(String hash){
+    public ResponseEntity<?> getLink(String hash) {
         return ResponseEntity.ok(service.getLinkByHas(hash));
     }
 
