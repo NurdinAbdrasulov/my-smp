@@ -16,7 +16,7 @@ public class FirebaseConfig {
 
 
     @Bean
-    public FirebaseApp initializeFirebase() throws IOException {
+    public FirebaseApp initializeFirebase() throws IOException {//todo optimize code
 
 //        ClassLoader classLoader = getClass().getClassLoader();
 //        targetStream = classLoader.getResourceAsStream(SERVICE_ACCOUNT_KEY);
