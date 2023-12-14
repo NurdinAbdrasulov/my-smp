@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,6 +39,19 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             throw new BaseException("Error with user registration", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    public UserRecord getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserRecord userRecord = null;
+        try {
+            userRecord = FirebaseAuth.getInstance().getUser(authentication.getName());
+        } catch (FirebaseAuthException e) {
+            throw new BaseException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return userRecord;
     }
 
 
