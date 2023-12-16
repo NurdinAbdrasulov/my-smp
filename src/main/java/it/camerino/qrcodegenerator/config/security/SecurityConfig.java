@@ -34,13 +34,13 @@ public class SecurityConfig {
     final OAuth2ResourceServerProperties oAuth2ResourceServerProperties;
     static final String[] WHITE_LIST_ENDPOINT = {
             "/qr/redirect",
-            "/test/**"
+            "/test/**",
+            "/user/register"
     };
 
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
@@ -53,12 +53,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider());
 
-        http.oauth2ResourceServer((oauth2ResourceServer) ->
+        http.oauth2ResourceServer(oauth2ResourceServer ->
                 oauth2ResourceServer
-                        .jwt((jwt) ->
-                                jwt
-                                        .decoder(jwtDecoder(oAuth2ResourceServerProperties))
-                        )
+                        .jwt(jwt -> jwt.decoder(jwtDecoder(oAuth2ResourceServerProperties)))
         );
 
         return http.build();
