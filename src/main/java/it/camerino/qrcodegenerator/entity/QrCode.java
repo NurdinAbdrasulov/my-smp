@@ -36,7 +36,7 @@ public class QrCode {
     String link;
 
     @Column(name = "color")
-    String color;//TODO How should we store color data? Maybe RGB
+    String color;
 
     @Column(name = "scan_number")
     BigInteger scanNumber;//How many times QR code  was scanned

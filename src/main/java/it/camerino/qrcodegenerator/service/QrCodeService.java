@@ -15,5 +15,7 @@ public interface QrCodeService {
 
     List<QrCodeDto> getAll();
 
+    List<QrCodeDto> getAllQrsOfCurrentUser();
+
     LinkDto getLinkByHas(String hash);
 }
