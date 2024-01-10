@@ -25,21 +25,8 @@ public class QrCode {
     @Column(name = "created_at")
     LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    LocalDateTime updatedAt;
-
     @ManyToOne
     @JoinColumn(name = "created_by")
     User createdBy;
-
-    @Column(name = "link")
-    String link;
-
-    @Column(name = "color")
-    String color;
-
-    @Column(name = "scan_number")
-    BigInteger scanNumber;//How many times QR code  was scanned
-
 
 }
