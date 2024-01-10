@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#/src/main/resources/key/spm-qr-firebase-adminsdk-qzgds-d37bd76c77.json

@@ -18,8 +18,8 @@ public class QrCodeDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime createdAt;
-//    User createdBy;
+//    User createdBy;//todo add later
     String link;
-    String color;//TODO How should we store color data? Maybe RGB
+    String color;
 
 }

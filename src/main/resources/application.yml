@@ -3,4 +3,9 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: prod
+
+  security.oauth2.resourceserver.jwt.jwk-set-uri: https://www.googleapis.com/service_accounts/v1/jwk/securetoken%40system.gserviceaccount.com
+
+firebase.api.key: AIzaSyBvOwppxS7XgteAx7xjDQ9pjjCqWREPBw8
+
