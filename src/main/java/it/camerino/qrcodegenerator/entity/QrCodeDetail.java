@@ -1,6 +1,6 @@
 package it.camerino.qrcodegenerator.entity;
 
-import it.camerino.qrcodegenerator.enums.QRCodeDetailStatus;
+import it.camerino.qrcodegenerator.enums.QrCodeDetailStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class QRCodeDetail {
+public class QrCodeDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +29,7 @@ public class QRCodeDetail {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    QRCodeDetailStatus status;
+    QrCodeDetailStatus status;
 
     @Column(name = "link")
     String link;

@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public enum QRCodeDetailStatus {
+public enum QrCodeDetailStatus {
     ACTIVE("qr version is active  "),
     OLD("qr version is old "),
     ;
