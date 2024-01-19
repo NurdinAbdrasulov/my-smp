@@ -1,19 +1,20 @@
 package it.camerino.qrcodegenerator.service;
 
-import it.camerino.qrcodegenerator.dto.LinkDto;
 import it.camerino.qrcodegenerator.dto.QrCodeDto;
+import it.camerino.qrcodegenerator.entity.QrCode;
+import it.camerino.qrcodegenerator.entity.User;
 
 import java.util.List;
 
 public interface QrCodeService {
 
-    QrCodeDto create(QrCodeDto dto);
+    List<QrCode> getAll();
+
+    List<QrCode> getAllByUser(User currentUser);
+
+    QrCode create(QrCodeDto dto, User currentUser);
 
     QrCodeDto delete(Long id);
 
-    QrCodeDto update(QrCodeDto dto);
-
-    List<QrCodeDto> getAll();
-
-    LinkDto getLinkByHas(String hash);
+    QrCode getByHash(String hash);
 }

@@ -1,11 +1,12 @@
 package it.camerino.qrcodegenerator.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import it.camerino.qrcodegenerator.enums.UserRole;
+import it.camerino.qrcodegenerator.enums.UserStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,15 +14,13 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class QrCodeDto {
+public class UserDto {
     Long id;
-    String hash;
+    String name;
+    UserRole role;
+    UserStatus status;
+    String username;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime createdAt;
-
-    UserDto createdBy;
-    String link;
-    String color;
-
 }

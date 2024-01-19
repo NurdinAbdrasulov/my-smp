@@ -2,7 +2,6 @@ package it.camerino.qrcodegenerator.service.impl;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
 import it.camerino.qrcodegenerator.entity.User;
 import it.camerino.qrcodegenerator.exception.BaseException;
@@ -16,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -54,12 +55,22 @@ public class UserServiceImpl implements UserService {
         return userRecord;
     }
 
+    @Override
+    public User getCurrentUserEntity() {
+        UserRecord currentUser = getCurrentUser();
 
-    private void saveUserDataInDB(String email, String password) {
-        repo.save(
+        return repo.findByUsername(
+                currentUser.getEmail()).orElseGet(() -> saveUserDataInDB(currentUser.getEmail(), null)
+        );
+    }
+
+
+    private User saveUserDataInDB(String email, String password) {
+        return repo.save(
                 User.builder()
-                        .username(email)//todo rename
+                        .username(email)
                         .password(password)
+                        .createdAt(LocalDateTime.now())
                         .build()
         );
     }
