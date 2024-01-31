@@ -29,6 +29,7 @@ public class QrCodeVersionDto {
     QrCodeDetailStatus detailStatus;
     UserDto createdBy;
     String link;
-    String color;
-
+    String qrColor;
+    String backgroundColor;
+    String frame;
 }

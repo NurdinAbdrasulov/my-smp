@@ -22,6 +22,7 @@ public class QrCodeDto {
 
     UserDto createdBy;
     String link;
-    String color;
-
+    String qrColor;
+    String backgroundColor;
+    String frame;
 }
