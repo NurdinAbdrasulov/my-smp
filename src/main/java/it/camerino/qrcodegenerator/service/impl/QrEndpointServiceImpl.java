@@ -63,7 +63,7 @@ public class QrEndpointServiceImpl implements QrEndpointService {
     public QrCodeDto create(QrCodeDto dto) {
         User currentUser = userService.getCurrentUserEntity();
 
-        it.camerino.qrcodegenerator.entity.QrCode qrCode = qrCodeService.create(dto, currentUser);
+        QrCode qrCode = qrCodeService.create(dto, currentUser);
         QrCodeDetail qrCodeDetail = qrCodeDetailService.create(dto, qrCode);
 
         return toModel(qrCode, qrCodeDetail);
@@ -112,7 +112,9 @@ public class QrEndpointServiceImpl implements QrEndpointService {
                 .createdAt(qrCode.getCreatedAt())
                 .createdBy(UserService.toModel(qrCode.getCreatedBy()))
                 .link(qrCodeDetail.getLink())
-                .color(qrCodeDetail.getColor())
+                .qrColor(qrCodeDetail.getQrColor())
+                .backgroundColor(qrCodeDetail.getBackgroundColor())
+                .frame(qrCodeDetail.getFrame())
                 .build();
     }
 
@@ -126,7 +128,9 @@ public class QrEndpointServiceImpl implements QrEndpointService {
                 .detailCreatedAt(qrCodeDetail.getCreatedAt())
                 .detailStatus(qrCodeDetail.getStatus())
                 .link(qrCodeDetail.getLink())
-                .color(qrCodeDetail.getColor())
+                .qrColor(qrCodeDetail.getQrColor())
+                .backgroundColor(qrCodeDetail.getBackgroundColor())
+                .frame(qrCodeDetail.getFrame())
                 .build();
     }
 }

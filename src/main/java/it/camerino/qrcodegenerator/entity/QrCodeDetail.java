@@ -34,11 +34,15 @@ public class QrCodeDetail {
     @Column(name = "link")
     String link;
 
-    @Column(name = "color")
-    String color;
+    @Column(name = "qr_color")
+    String qrColor;
+
+    @Column(name = "background_color")
+    String backgroundColor;
 
     @Column(name = "scan_number")
     BigInteger scanNumber;//How many times QR code  was scanned
 
-
+    @Column(name = "frame")
+    String frame;
 }
