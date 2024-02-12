@@ -20,7 +20,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@Slf4j
+//@Slf4j
 public class QrCodeServiceImpl implements QrCodeService {
 
     QrCodeRepo repo;
