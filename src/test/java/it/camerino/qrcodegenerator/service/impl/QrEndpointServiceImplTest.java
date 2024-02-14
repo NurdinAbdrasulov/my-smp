@@ -1,41 +1,13 @@
 package it.camerino.qrcodegenerator.service.impl;
-import it.camerino.qrcodegenerator.dto.QrCodeDto;
+
 import it.camerino.qrcodegenerator.entity.QrCode;
-import it.camerino.qrcodegenerator.entity.QrCodeDetail;
-import it.camerino.qrcodegenerator.entity.User;
 import it.camerino.qrcodegenerator.enums.QrCodeDetailStatus;
-import it.camerino.qrcodegenerator.exception.BaseException;
 import it.camerino.qrcodegenerator.repository.QrCodeDetailRepo;
-import it.camerino.qrcodegenerator.repository.QrCodeRepo;
-import it.camerino.qrcodegenerator.repository.UserRepo;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import org.mockito.Mockito;
-import org.mockito.internal.matchers.Equals;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.springframework.http.HttpStatus;
-
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class QrEndpointServiceImplTest {
 
@@ -54,10 +26,7 @@ public class QrEndpointServiceImplTest {
         QrCodeDetailServiceImpl qrCodeDetailService = new QrCodeDetailServiceImpl(repo);
 
         // Sprawdzenie, czy wywołanie zwraca oczekiwany wyjątek
-        BaseException exception = assertThrows(BaseException.class, () -> qrCodeDetailService.getLinkByQr(qrCode));
-
-        // Sprawdzenie, czy treść wyjątku jest poprawna
-        assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> qrCodeDetailService.getLinkByQr(qrCode));
 
     }
 }

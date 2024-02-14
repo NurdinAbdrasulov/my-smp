@@ -6,44 +6,28 @@ import it.camerino.qrcodegenerator.entity.User;
 import it.camerino.qrcodegenerator.repository.QrCodeRepo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.mockito.Mockito;
-import org.mockito.internal.matchers.Equals;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import org.junit.jupiter.api.condition.EnabledOnOs;
-/*
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class QrCodeServiceImplTest {
 
-    QrCodeServiceImpl service;
-//    @Mock
+    @Mock
     QrCodeRepo repo;
 
-    QrCodeServiceImplTest() {
-        Mockito.mock(repo).
+    @InjectMocks
+    QrCodeServiceImpl service;
 
-        service = new QrCodeServiceImpl(repo);
-    }
     @Test
-    public void CreateShouldNotReturnZero()
-    {
+    public void CreateShouldNotReturnZero() {
         QrCodeDto dto = new QrCodeDto();
 
         assertNotNull(dto);
@@ -65,7 +49,7 @@ public class QrCodeServiceImplTest {
     @Test
     public void shouldCallSaveMethodOneTime() {
 
-        doReturn(null).when(repo).save(any());
+        doReturn(new QrCode()).when(repo).save(any());
 
         //given
         final QrCodeDto dto = QrCodeDto.builder()
@@ -83,4 +67,3 @@ public class QrCodeServiceImplTest {
     }
 }
 
-*/
