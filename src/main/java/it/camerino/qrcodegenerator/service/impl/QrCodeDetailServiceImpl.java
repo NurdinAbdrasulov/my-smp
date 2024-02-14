@@ -74,7 +74,7 @@ public class QrCodeDetailServiceImpl implements QrCodeDetailService {
     }
 
 
-    private Optional<QrCodeDetail> getActiveDetailByQrCode(QrCode qrCode) {
+    public Optional<QrCodeDetail> getActiveDetailByQrCode(QrCode qrCode) {
         List<QrCodeDetail> details = repo.findByQrCodeAndStatus(qrCode, QrCodeDetailStatus.ACTIVE);
 
         if (details.size() > 1) {

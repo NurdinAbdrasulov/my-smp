@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    private User saveUserDataInDB(String email, String password) {
+    public User saveUserDataInDB(String email, String password) {
         return repo.save(
                 User.builder()
                         .username(email)

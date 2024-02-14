@@ -17,6 +17,7 @@ import java.io.IOException;
 @RequestMapping("qr")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@CrossOrigin
 public class QrController {
 
     QrEndpointService service;
